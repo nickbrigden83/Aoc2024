@@ -4,7 +4,13 @@ class DayThree:
 
     def handler(self, file_name):
         file_content = self.get_file_content(file_name)
-        pairs = self.get_pairs(file_content)
+        dont_splits = file_content.split("don't()")
+        dos = [dont_splits.pop(0)]
+        for dont_item in dont_splits:
+            dont_split = dont_item.split("do()")
+            if len(dont_split) > 1:
+                dos.extend(dont_split[1:])
+        pairs = self.get_pairs("".join(dos))
         total = 0
         for pair in pairs:
             total += (pair[0]*pair[1])
